@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Student } from '../../models/student';
 
 @Component({
   selector: 'app-student-editor',
@@ -9,10 +10,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './student-editor.component.css'
 })
 export class StudentEditorComponent implements OnInit{
-name = 'name';
-surname = 'surname';
+editingStudent: Student;
 
-constructor() {}
+constructor() {
+  this.editingStudent =new Student();
+}
 ngOnInit(): void {
 
 }
