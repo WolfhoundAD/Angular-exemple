@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Student } from '../../models/student';
+import { BaseServiceService } from '../../service/base-service.service';
 
 @Component({
   selector: 'app-student-editor',
@@ -12,10 +13,15 @@ import { Student } from '../../models/student';
 export class StudentEditorComponent implements OnInit{
 editingStudent: Student;
 
-constructor() {
-  this.editingStudent =new Student();
+constructor(private baseService: BaseServiceService) {
+  this.editingStudent = new Student();
 }
-ngOnInit(): void {
 
+ngOnInit(): void {}
+
+addStudent(): void {
+  this.baseService.addNewStudent(this.editingStudent);
+  this.editingStudent = new Student();
 }
+
 }

@@ -1,6 +1,7 @@
 import { Student } from './../../models/student';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BaseServiceService } from '../../service/base-service.service';
 
 @Component({
   selector: 'app-table-students',
@@ -9,15 +10,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './table-students.component.html',
   styleUrls: ['./table-students.component.css']
 })
+
 export class TableStudentsComponent implements OnInit {
   students: Student[];
 
-  constructor() {
-    this.students = [
-      {id:0, name: 'Имя', surname: 'Фамилия'},
-      {id: 1, name: 'Имя 1', surname: 'Фамилия 1'},
-      {id: 2, name: 'Имя 2', surname: 'Фамилия 2'}
-    ];
+  constructor(private baseService: BaseServiceService) {
+    this.students = [];
   }
-  ngOnInit() {}
+
+  ngOnInit(): void {
+    console.log("TableStudentsComponent");
+    this.students = this.baseService.getAllStudents();
+  }
+
 }
