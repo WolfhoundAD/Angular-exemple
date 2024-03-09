@@ -1,15 +1,28 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 import { StudentEditorComponent } from './components/student-editor/student-editor.component';
 import { TableStudentsComponent } from './components/table-students/table-students.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, RouterOutlet, StudentEditorComponent, TableStudentsComponent],
+  imports: [
+    FormsModule,
+    RouterOutlet,
+   //BrowserAnimationsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    StudentEditorComponent,
+    TableStudentsComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Alexander';
