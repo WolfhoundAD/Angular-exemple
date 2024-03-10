@@ -11,17 +11,17 @@ import { BaseServiceService } from '../../service/base-service.service';
   styleUrl: './student-editor.component.css'
 })
 export class StudentEditorComponent implements OnInit{
-editingStudent: Student;
+  editingStudent: Student;
 
-constructor(private baseService: BaseServiceService) {
+  constructor(private baseService: BaseServiceService) {
   this.editingStudent = new Student();
-}
+  }
 
-ngOnInit(): void {}
+  ngOnInit(): void {}
 
-addStudent(): void {
+  addStudent(): void {
   this.baseService.addNewStudent(this.editingStudent);
   this.editingStudent = new Student();
-}
+  }
 
 }

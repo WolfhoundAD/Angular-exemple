@@ -8,6 +8,7 @@ import { StudentEditorComponent } from './components/student-editor/student-edit
 import { TableStudentsComponent } from './components/table-students/table-students.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from './service/in-memory-data.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @Component({
   selector: 'app-root',

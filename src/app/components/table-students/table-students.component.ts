@@ -22,6 +22,7 @@ export class TableStudentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     console.log("TableStudentsComponent");
     this.baseService.getAllStudents().subscribe(data => this.students = data);
   }
