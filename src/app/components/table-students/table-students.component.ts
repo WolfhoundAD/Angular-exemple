@@ -21,14 +21,23 @@ export class TableStudentsComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     console.log("TableStudentsComponent");
-    this.students = this.baseService.getAllStudents();
+    this.baseService.getAllStudents().subscribe(data => this.students = data);
   }
-  addNewStudent(): void {
+
+  addNewStudent() {
     const dialogAddingNewStudent = this.dialog.open(DialogEditWrapperComponent, {
       width: '400px',
       data: null
+    });
+
+    dialogAddingNewStudent.afterClosed().subscribe((result: Student) => {
+      if(result != null) {
+        console.log("adding new student: " + result.name);
+        this.baseService.addNewStudent(result).subscribe(k=>
+          this.baseService.getAllStudents().subscribe(data => this.students = data) );
+      }
     });
   }
 }
