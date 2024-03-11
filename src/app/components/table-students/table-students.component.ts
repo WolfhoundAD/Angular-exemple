@@ -41,4 +41,12 @@ export class TableStudentsComponent implements OnInit {
       }
     });
   }
+
+  deleteStudent(id: number | null) {
+    if (id !== null) {
+      this.baseService.deleteStudent(id).subscribe(() => {
+        this.students = this.students.filter(student => student.id !== id);
+      });
+    }
+  }
 }

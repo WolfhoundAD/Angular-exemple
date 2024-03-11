@@ -20,4 +20,8 @@ export class BaseServiceService {
     return this.http.post<Student>(this.studentsUrl, student);
   }
 
+  deleteStudent(id: number): Observable<any> {
+    const url = `${this.studentsUrl}/${id}`;
+    return this.http.delete(url);
+  }
 }

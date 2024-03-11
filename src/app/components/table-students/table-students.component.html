@@ -12,9 +12,11 @@
       <td>{{student.id}}</td>
       <td>{{student.name}}</td>
       <td>{{student.surname}}</td>
+      <td>
+        <button (click)="deleteStudent(student.id)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
 <br>
 <button (click)="addNewStudent()">Add new student</button>
-
