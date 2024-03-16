@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class BaseServiceService {
   private baseUrl = 'http://localhost:4200/';
   private studentsUrl = this.baseUrl + 'api/students';
@@ -23,5 +24,10 @@ export class BaseServiceService {
   deleteStudent(id: number): Observable<any> {
     const url = `${this.studentsUrl}/${id}`;
     return this.http.delete(url);
+  }
+
+  updateStudent(student: Student): Observable<any> {
+    const url = `${this.studentsUrl}/${student.id}`;
+    return this.http.put<Student>(url, student);
   }
 }

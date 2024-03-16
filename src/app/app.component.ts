@@ -9,6 +9,7 @@ import { TableStudentsComponent } from './components/table-students/table-studen
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from './service/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     StudentEditorComponent,
     TableStudentsComponent
   ],
-
+ // providers: [provideAnimations()],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

@@ -3,15 +3,18 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
+  providers: [
+     provideRouter(routes),
      provideClientHydration(),
-     provideHttpClient(),
-    importProvidersFrom([HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
+     importProvidersFrom(BrowserAnimationsModule),
+     provideHttpClient(), //withFetch()
+     importProvidersFrom([HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
   ])
 ]
 };

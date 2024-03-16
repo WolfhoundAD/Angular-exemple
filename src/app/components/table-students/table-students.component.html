@@ -1,22 +1,51 @@
 <h1>Student table</h1>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Surname</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{student.id}}</td>
-      <td>{{student.name}}</td>
-      <td>{{student.surname}}</td>
-      <td>
-        <button (click)="deleteStudent(student.id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
+
+<div>
+  <button mat-raised-button color="primary" (click)="addNewStudent()">Add Student</button>
+</div>
+
+<div class="mat-form-field">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef = "id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header > ID </th>
+    <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef = "name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+      Name
+    </th>
+    <td mat-cell *matCellDef="let student"> {{student.name}} </td>
+  </ng-container>
+
+  <!-- Surname Column -->
+  <ng-container matColumnDef = "surname" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header > Surname </th>
+    <td mat-cell *matCellDef="let student"> {{student.surname}} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let student">
+      <button mat-raised-button class="update-button" (click)="editStudent(student)">
+        Edit
+      </button>
+      <button mat-raised-button class="delete-button" (click)="deleteStudent(student.id)">
+        Delete
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<br>
-<button (click)="addNewStudent()">Add new student</button>
+
+<mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons aria-label="Select page of students" (page)="onPageChange($event)">
+</mat-paginator>
+
