@@ -37,7 +37,6 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 })
 
 export class TableStudentsComponent implements OnInit {
-  students: Student[];
   displayedColumns: string[] = ['id', 'name', 'surname', 'actions'];
   dataSource: MatTableDataSource<Student>;
   pageSizeOptions: number[];
@@ -46,14 +45,12 @@ export class TableStudentsComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
   constructor(private baseService: BaseServiceService, public dialog: MatDialog ) {
-    this.students = [];
     this.dataSource = new MatTableDataSource<Student>([]);
     this.pageSizeOptions = [5, 10, 20];
   }
 
   ngOnInit() {
     this.baseService.getAllStudents().subscribe(data => {
-      this.students = data;
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort; // Set the sort after the view initilization
@@ -70,9 +67,10 @@ export class TableStudentsComponent implements OnInit {
       if (result != null) {
         console.log("adding new student: " + result.name);
         this.baseService.addNewStudent(result).subscribe(newStudent => {
-          // Assuming the server returns the newly created student with an ID
-          this.students.push(newStudent);
-          this.dataSource.data = [...this.students]; // Update dataSource
+          // Добавляем нового студента в dataSource напрямую
+          this.dataSource.data = [...this.dataSource.data, newStudent];
+          this.dataSource.data = this.dataSource.data.slice(); // Принудительно обновляем ссылку на данные
+          this.dataSource._updateChangeSubscription(); // Обновляем подписку на изменения
         });
       }
     });
@@ -80,15 +78,17 @@ export class TableStudentsComponent implements OnInit {
 
   deleteStudent(id: number | null) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '350px',
+      height: '75px',
       data: 'Are you sure you want to delete this student?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && id !== null) {
         this.baseService.deleteStudent(id).subscribe(() => {
-          this.students = this.students.filter(student => student.id !== id);
-          this.dataSource.data = [...this.students]; // Update dataSource
+          // Удаляем студента из dataSource напрямую
+          this.dataSource.data = this.dataSource.data.filter(student => student.id !== id);
+          this.dataSource._updateChangeSubscription(); // Обновляем подписку на изменения
         });
       }
     });
@@ -102,11 +102,13 @@ export class TableStudentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Student) => {
       if (result) {
-        // Update student data on the server
-        this.baseService.updateStudent(result).subscribe(updatedStudent => {
-          // Update local students array
-          const index = this.students.findIndex(s => s.id === updatedStudent.id);
-          this.baseService.getAllStudents().subscribe(data => this.students = data);
+        this.baseService.updateStudent(result).subscribe(() => {
+          // Обновляем данные в dataSource напрямую
+          const index = this.dataSource.data.findIndex(s => s.id === result.id);
+          if (index !== -1) {
+            this.dataSource.data[index] = result;
+            this.dataSource._updateChangeSubscription(); // Обновляем подписку на изменения
+          }
         });
       }
     });

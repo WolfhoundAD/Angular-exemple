@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { Student } from '../../../models/student';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dialog-edit-student',
   standalone: true,
-  imports: [FormsModule, MatInputModule],
+  imports: [FormsModule, MatInputModule, MatButtonModule],
   templateUrl: './dialog-edit-student.component.html',
   styleUrls: ['./dialog-edit-student.component.css']
 })
