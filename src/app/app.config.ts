@@ -10,11 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-     provideRouter(routes),
+   //  provideRouter(routes),
      provideClientHydration(),
      importProvidersFrom(BrowserAnimationsModule),
-     provideHttpClient(), //withFetch()
-     importProvidersFrom([HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
-  ])
-]
+     provideHttpClient() // withFetch()
+  ]
 };

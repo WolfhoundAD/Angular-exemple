@@ -37,7 +37,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 })
 
 export class TableStudentsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'surname', 'actions'];
+  displayedColumns: string[] = ['id', 'fio', 'group', 'actions'];
   dataSource: MatTableDataSource<Student>;
   pageSizeOptions: number[];
 
@@ -65,7 +65,7 @@ export class TableStudentsComponent implements OnInit {
 
     dialogAddingNewStudent.afterClosed().subscribe((result: Student) => {
       if (result != null) {
-        console.log("adding new student: " + result.name);
+        console.log("adding new student: " + result.fio);
         this.baseService.addNewStudent(result).subscribe(newStudent => {
           // Добавляем нового студента в dataSource напрямую
           this.dataSource.data = [...this.dataSource.data, newStudent];

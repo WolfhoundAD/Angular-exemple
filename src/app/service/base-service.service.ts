@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 
 export class BaseServiceService {
-  private baseUrl = 'http://localhost:4200/';
-  private studentsUrl = this.baseUrl + 'api/students';
+  private baseUrl = 'http://localhost:8081/';
+  private studentsUrl = this.baseUrl + 'api/base/students';
 
   constructor(private http: HttpClient) { }
 

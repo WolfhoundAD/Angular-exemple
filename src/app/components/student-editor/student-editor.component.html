@@ -1,7 +1,7 @@
 <h1>Student editor</h1>
-{{editingStudent.name}} {{editingStudent.surname}}
+{{editingStudent.fio}} {{editingStudent.group}}
 <br/>
-<input [(ngModel)]="editingStudent.name" type="text">
+<input [(ngModel)]="editingStudent.fio" type="text">
 <br/>
-<input [(ngModel)]="editingStudent.surname" type="text">
+<input [(ngModel)]="editingStudent.group" type="text">
 <button (click)="addStudent()">Add new student</button>
